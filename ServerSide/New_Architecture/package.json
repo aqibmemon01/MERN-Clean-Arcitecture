@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -14,8 +13,6 @@
     "express": "^4.18.1"
   },
   "devDependencies": {
-    "i": "^0.3.7",
-    "npm": "^8.14.0",
     "typescript": "^4.7.4"
   }
 }

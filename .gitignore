@@ -1,2 +1,3 @@
-/ServerSide/Express/node_modules
-/ServerSide/Express/New_Architecture
+
+/ServerSide/New_Architecture/node_modules
+/ServerSide/New_Architecture/dist
