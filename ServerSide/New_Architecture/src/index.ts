@@ -1,7 +1,8 @@
 
-const express = require('express');
-const app = express();
 import ProductRoutes from './features/products/routes/index';
+import express from 'express';
+
+const app = express();
 
 app.use(express.json());
 app.use('/api', ProductRoutes);
