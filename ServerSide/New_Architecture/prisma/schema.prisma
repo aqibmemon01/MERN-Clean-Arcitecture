@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Business {
+  id         String       @id @unique @default(uuid())
+  name       String
+  email      String       @unique
+  password   String
+  products   Products[]
+  categories Categories[]
+  customers  Customers[]
+  Orders     Orders[]
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime
+}
+
+model Products {
+  id          String                  @id @unique @default(uuid())
+  name        String
+  description String
+  image       String
+  price       Float
+  businessId  String
+  quantity    Int
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime
+  business    Business                @relation(fields: [businessId], references: [id])
+  categories  ProductWithCategories[]
+  Orders      Orders?                 @relation(fields: [ordersId], references: [id])
+  ordersId    String?
+  Cart        Cart?                   @relation(fields: [cartId], references: [id])
+  cartId      String?
+}
+
+model Categories {
+  id         String                  @id @unique @default(uuid())
+  name       String                  @unique
+  businessId Business                @relation(fields: [id], references: [id])
+  products   ProductWithCategories[]
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime
+}
+
+model ProductWithCategories {
+  product    Products   @relation(fields: [productId], references: [id])
+  productId  String
+  category   Categories @relation(fields: [categoryId], references: [id])
+  categoryId String
+
+  @@id([productId, categoryId])
+}
+
+model Customers {
+  id              String   @id @unique @default(uuid())
+  BusinessId      Business @relation(fields: [businessId], references: [id])
+  businessId      String
+  name            String
+  email           String   @unique
+  personalAddress String
+  deliveryAddress String
+  phoneNumber     Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime
+  orders          Orders[]
+  cart            Cart?
+}
+
+model Orders {
+  id            String     @id @unique @default(uuid())
+  Customers     Customers  @relation(fields: [customersId], references: [id])
+  customersId   String
+  Business      Business   @relation(fields: [businessId], references: [id])
+  businessId    String
+  products      Products[]
+  paymentStatus Boolean
+  paymentType   Int
+  orderCost     Float
+}
+
+model Cart {
+  id         String     @id @unique @default(uuid())
+  customerId String     @unique
+  Customer   Customers  @relation(fields: [customerId], references: [id])
+  productId  String
+  products   Products[]
+}

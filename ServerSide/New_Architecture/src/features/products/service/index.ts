@@ -5,6 +5,7 @@ interface IProductService {
 }
 
 class ProductService implements IProductService {
+  
   constructor() {}
 
   private static productService: ProductService;
@@ -14,7 +15,6 @@ class ProductService implements IProductService {
       this.productService = new ProductService();
       return this.productService;
     }
-
     this.productService = new ProductService();
     return this.productService;
   };
