@@ -15,7 +15,6 @@ class ProductRepository implements IProductRepository {
 
   static getInstance = () => {
     if (this.productRepository !== undefined) {
-      this.productRepository = new ProductRepository();
       return this.productRepository;
     }
 

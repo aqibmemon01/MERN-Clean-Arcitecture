@@ -12,7 +12,6 @@ class ProductService implements IProductService {
 
   static getInstance = () => {
     if (this.productService !== undefined) {
-      this.productService = new ProductService();
       return this.productService;
     }
     this.productService = new ProductService();
