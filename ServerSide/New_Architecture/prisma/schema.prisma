@@ -20,7 +20,7 @@ model Business {
   customers  Customers[]
   Orders     Orders[]
   createdAt  DateTime     @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime     @updatedAt
 }
 
 model Products {
@@ -32,7 +32,7 @@ model Products {
   businessId  String
   quantity    Int
   createdAt   DateTime                @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime                @updatedAt
   business    Business                @relation(fields: [businessId], references: [id])
   categories  ProductWithCategories[]
   Orders      Orders?                 @relation(fields: [ordersId], references: [id])
@@ -47,7 +47,7 @@ model Categories {
   businessId Business                @relation(fields: [id], references: [id])
   products   ProductWithCategories[]
   createdAt  DateTime                @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime                @updatedAt
 }
 
 model ProductWithCategories {
@@ -64,12 +64,13 @@ model Customers {
   BusinessId      Business @relation(fields: [businessId], references: [id])
   businessId      String
   name            String
+  password        String
   email           String   @unique
   personalAddress String
   deliveryAddress String
   phoneNumber     Int
   createdAt       DateTime @default(now())
-  updatedAt       DateTime
+  updatedAt       DateTime @updatedAt
   orders          Orders[]
   cart            Cart?
 }
@@ -84,6 +85,8 @@ model Orders {
   paymentStatus Boolean
   paymentType   Int
   orderCost     Float
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
 }
 
 model Cart {
