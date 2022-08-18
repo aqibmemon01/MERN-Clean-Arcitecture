@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-import { Request, Response } from "express";
 import BusinessController from '../controller';
 
-router.get('/business',(req:Request, res:Response)=>{
-    BusinessController.getAll(req, res)
-})
+router.get('/getAll', BusinessController.getAll)
+router.post('/create', BusinessController.create)
+router.put('/update', BusinessController.update)
+router.delete('/delete', BusinessController.delete)
 
 export default router;

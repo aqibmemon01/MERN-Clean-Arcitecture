@@ -26,7 +26,7 @@ class BusinessRepository implements IBusinessRepository {
     console.log("inside repo getAll");
     const prismaService = PrismaService.getInstance();
     try {
-      const response = await prismaService.products.findMany();
+      const response = await prismaService.business.findMany();
       return response;
     }
     catch (err) {

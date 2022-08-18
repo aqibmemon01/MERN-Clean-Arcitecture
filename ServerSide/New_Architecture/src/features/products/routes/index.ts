@@ -3,8 +3,9 @@ const router = express.Router();
 import { Request, Response } from "express";
 import ProductController from '../controller';
 
-router.get('/products',(req:Request, res:Response)=>{
-    ProductController.getAll(req, res)
-})
+router.get('/getAll', ProductController.getAll)
+router.post('/create', ProductController.create)
+router.put('/update', ProductController.update)
+router.delete('/delete', ProductController.delete)
 
 export default router;
