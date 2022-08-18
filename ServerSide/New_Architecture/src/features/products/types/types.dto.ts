@@ -12,3 +12,4 @@ export interface ICreateProduct {
   businessId: string;
   quantity: number;
 }
+

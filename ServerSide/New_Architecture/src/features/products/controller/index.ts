@@ -9,7 +9,7 @@ class ProductController {
   getAll = async (req: Request, res: Response) => {
     console.log("inside controller");
     const productService = ProductService.getInstance();
-    const d = await productService.getAll(req.body);
+    const d = await productService.getAll(req.query);
     console.log(d);
     res.send(d);
   };

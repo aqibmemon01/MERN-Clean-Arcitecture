@@ -1,20 +1,21 @@
 import PrismaService from "../../../db";
+import { ICreateBusiness, IRemoveBusiness } from "../types/types.dto";
 
-interface IBusinessRepository{
+interface IBusinessRepository {
   getAll: () => void;
-  create: () => void;
-  update: () => void;
-  delete: () => void;
+  create: (data: ICreateBusiness) => void;
+  update: (data: ICreateBusiness) => void;
+  delete: (data: IRemoveBusiness) => void;
 }
 
-class BusinessRepository implements IBusinessRepository{
+class BusinessRepository implements IBusinessRepository {
 
-  constructor(){}
+  constructor() { }
 
-  private static businessRepository : BusinessRepository;
+  private static businessRepository: BusinessRepository;
 
   static getInstance = () => {
-    if(this.businessRepository !== undefined){
+    if (this.businessRepository !== undefined) {
       return this.businessRepository;
     }
     this.businessRepository = new BusinessRepository();
@@ -24,25 +25,60 @@ class BusinessRepository implements IBusinessRepository{
   getAll = async () => {
     console.log("inside repo getAll");
     const prismaService = PrismaService.getInstance();
-    try{
-      const response = await prismaService.prismaService.products.findMany();
+    try {
+      const response = await prismaService.business.findMany();
       return response;
     }
-    catch(err){
+    catch (err) {
       console.log("error Business repo getAll", err)
     }
   };
 
-  create = () => {
-
+  create = async (data: ICreateBusiness) => {
+    console.log("inside business repo create");
+    const prismaService = PrismaService.getInstance();
+    try {
+      const response = await prismaService.business.create({
+        data
+      });
+      return response;
+    }
+    catch (err) {
+      console.log("error Business repo create", err)
+    }
   };
 
-  update = () => {
-
+  update = async (data: ICreateBusiness) => {
+    console.log("inside business repo update");
+    const prismaService = PrismaService.getInstance();
+    try {
+      const response = await prismaService.business.update({
+        data,
+        where:{
+          id:data.businessId
+        }
+      });
+      return response;
+    }
+    catch (err) {
+      console.log("error Business repo update", err)
+    }
   };
 
-  delete = () => {
-
+  delete = async(data:IRemoveBusiness) => {
+    console.log("inside business repo delete");
+    const prismaService = PrismaService.getInstance();
+    try {
+      const response = await prismaService.business.delete({
+        where:{
+          id:data.businessId
+        }
+      })
+      return response;
+    }
+    catch (err) {
+      console.log("error Business repo delete", err)
+    }
   };
 }
 

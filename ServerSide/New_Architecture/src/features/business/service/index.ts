@@ -1,10 +1,11 @@
 import BusinessRepository from "../repository";
+import { ICreateBusiness, IRemoveBusiness } from "../types/types.dto";
 
 interface IBusinessService {
   getAll: () => void;
-  create: () => void;
-  remove: () => void;
-  update: () => void;
+  create: (data: ICreateBusiness) => void;
+  update: (data: ICreateBusiness) => void;
+  delete: (data: IRemoveBusiness) => void;
 }
 
 class BusinessService implements IBusinessService {
@@ -24,19 +25,28 @@ class BusinessService implements IBusinessService {
     console.log("inside business service getAll");
     const businessRepository = BusinessRepository.getInstance();
     const response = businessRepository.getAll();
-    return response; 
+    return response;
   }
 
-  create = () => {
-
+  create = (data: ICreateBusiness) => {
+    console.log("inside business service create");
+    const businessRepository = BusinessRepository.getInstance();
+    const response = businessRepository.create(data);
+    return response;
   }
 
-  update = () => {
-
+  update = (data: ICreateBusiness) => {
+    console.log("inside business service update");
+    const businessRepository = BusinessRepository.getInstance();
+    const response = businessRepository.update(data);
+    return response;
   }
 
-  remove = () => {
-
+  delete = (data: IRemoveBusiness) => {
+    console.log("inside business service remove");
+    const businessRepository = BusinessRepository.getInstance();
+    const response = businessRepository.delete(data);
+    return response;
   }
 
 }
