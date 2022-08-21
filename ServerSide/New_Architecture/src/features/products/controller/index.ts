@@ -18,7 +18,7 @@ class ProductController {
     const productService = ProductService.getInstance();
     const d = await productService.create(req.body);
     console.log(d);
-    res.send(d);
+    res.status(200).send(d);
   };
 
   update = async (req: Request, res: Response) => {

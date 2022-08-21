@@ -21,6 +21,7 @@ class BuisnessController implements IBusinessRepository {
     response.send(finalResponse);
   }
   create = async (request: Request, response: Response) => {
+    let {name="aaa", age=12} = request.body; 
     console.log("create Business Controller");
     const businessService = BusinessService.getInstance();
     const finalResponse = await businessService.create(request.body);
