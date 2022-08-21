@@ -23,15 +23,15 @@ class ProductRepository implements IProductRepository {
   };
 
   getAll = async (data: IGetAllProducts) => {
-    console.log(data, "inside repo");
+    let {pageNumber=1, pageSize=20, businessId=""} = data;
     const prismaService = PrismaService.getInstance();
     try {
       const response = await prismaService.products.findMany({
-        take: Number(data.pageSize),
-        skip: (data.pageNumber - 1) * data.pageSize,
-        where: {
-          businessId: data.businessId,
-        },
+        take: Number(pageSize),
+        skip: (pageNumber - 1) * pageSize,
+        // where: {
+        //   businessId: businessId,
+        // },
       });
       return response;
     } catch (error) {

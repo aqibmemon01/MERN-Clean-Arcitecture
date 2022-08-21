@@ -1,10 +1,26 @@
 import express from 'express';
 const router = express.Router();
+import { Request, Response } from "express";
 import BusinessController from '../controller';
 
-router.get('/getAll', BusinessController.getAll)
-router.post('/create', BusinessController.create)
-router.put('/update', BusinessController.update)
-router.delete('/delete', BusinessController.delete)
+router.get('/business/getAll', (req: Request, res: Response) => {
+    // #swagger.tags = ['Business']
+    BusinessController.getAll(req, res)
+});
+router.post('/business/create', (req: Request, res: Response) => {
+    // #swagger.tags = ['Business']
+    // let { name, email, password } = req.body;
+    BusinessController.create(req, res)
+});
+router.put('/business/update', (req: Request, res: Response) => {
+    // #swagger.tags = ['Business']
+    let { name, email, password, businessId } = req.body;
+    BusinessController.update(req, res)
+});
+router.delete('/business/delete', (req: Request, res: Response) => {
+    // #swagger.tags = ['Business']
+    let { businessId } = req.query;
+    BusinessController.delete(req, res)
+});
 
 export default router;
